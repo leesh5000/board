@@ -44,6 +44,9 @@ dependencies {
     // SpringDoc OpenAPI
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
 
+    // Jasypt for property encryption
+    implementation("com.github.ulisesbocchio:jasypt-spring-boot-starter:3.0.5")
+
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
