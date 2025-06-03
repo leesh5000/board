@@ -9,6 +9,8 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    environment: AWS_CONFIG
+
     permissions:
       id-token: write           # OIDC 토큰을 발급받기 위해 필요
       contents: read            # repo 코드를 체크아웃하기 위해 필요
