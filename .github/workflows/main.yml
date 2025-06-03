@@ -96,6 +96,6 @@ jobs:
           aws elasticbeanstalk update-environment \
             --environment-name "${ENV_NAME}" \
             --version-label "${VERSION_LABEL}" \
-            --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=SPRING_PROFILES_ACTIVE,Value=prod \
+            --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=SPRING_PROFILES_ACTIVE,Value=${SPRING_PROFILES_ACTIVE} \
                              Namespace=aws:elasticbeanstalk:application:environment,OptionName=JASYPT_ENCRYPTOR_PASSWORD,Value=${JASYPT_ENCRYPTOR_PASSWORD} \
             --region "${REGION}"
