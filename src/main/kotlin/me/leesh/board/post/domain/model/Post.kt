@@ -9,8 +9,6 @@ import me.leesh.board.common.domain.model.BaseEntity
 @Entity
 class Post(
     createdBy: String,
-    title: String,
-    content: String,
 ) : BaseEntity(createdBy) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

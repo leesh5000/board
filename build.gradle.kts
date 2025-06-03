@@ -64,8 +64,3 @@ allOpen {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-// Configure QueryDSL generated sources directory
-kotlin.sourceSets.main {
-    kotlin.srcDir("$buildDir/generated/source/kapt/main")
-}
