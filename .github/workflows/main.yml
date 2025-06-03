@@ -56,12 +56,31 @@ jobs:
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
+        # => 이 스텝 이후부터 AWS CLI가 자동으로 AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY / AWS_SESSION_TOKEN을 환경 변수로 사용합니다. :contentReference[oaicite:2]{index=2}
 
-      # 7. EB에 배포
-      - name: Deploy to Elastic Beanstalk
-        uses: aws-actions/elastic-beanstalk-deploy@v1
-        with:
-          application-name: ${{ secrets.EB_APPLICATION_NAME }}    # EB 애플리케이션 이름
-          environment-name: ${{ secrets.EB_ENVIRONMENT_NAME }}    # EB 환경 이름
-          version-label: ${{ github.sha }}                         # 커밋 SHA를 버전 레이블로 사용
-          deployment-package: app.zip
+      # 7. S3에 ZIP 업로드 및 EB에 버전 생성/배포
+      - name: Deploy to Elastic Beanstalk via AWS CLI
+        env:
+          BUCKET_NAME: ${{ secrets.EB_S3_BUCKET }}
+          APP_NAME:    ${{ secrets.EB_APPLICATION_NAME }}
+          ENV_NAME:    ${{ secrets.EB_ENVIRONMENT_NAME }}
+          REGION:      ${{ secrets.AWS_REGION }}
+          VERSION_LABEL: ${{ github.sha }}        # 커밋 SHA를 버전 레이블로 사용
+        run: |
+          # 7.1 S3로 ZIP 업로드
+          aws s3 cp app.zip s3://${BUCKET_NAME}/${VERSION_LABEL}.zip
+
+          # 7.2 새 애플리케이션 버전 생성 (AWS CLI)
+          aws elasticbeanstalk create-application-version \
+            --application-name "${APP_NAME}" \
+            --version-label "${VERSION_LABEL}" \
+            --source-bundle S3Bucket="${BUCKET_NAME}",S3Key="${VERSION_LABEL}.zip" \
+            --region "${REGION}"
+          # :contentReference[oaicite:3]{index=3}
+
+          # 7.3 환경 업데이트 (새 버전을 해당 환경에 배포)
+          aws elasticbeanstalk update-environment \
+            --environment-name "${ENV_NAME}" \
+            --version-label "${VERSION_LABEL}" \
+            --region "${REGION}"
+          # :contentReference[oaicite:4]{index=4}
