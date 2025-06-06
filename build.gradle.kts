@@ -47,9 +47,6 @@ dependencies {
     // QueryDSL
     implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
     kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
-
-    // dotenv 지원을 위한 의존성 추가
-    implementation("me.paulschwarz:spring-dotenv:4.0.0")
 }
 
 kotlin {
