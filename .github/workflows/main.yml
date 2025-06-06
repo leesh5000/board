@@ -1,4 +1,4 @@
-name: fastcampus board
+name: board
 
 env:
   AWS_REGION: ap-northeast-2
