@@ -39,4 +39,4 @@ out/
 ### Kotlin ###
 .kotlin
 mysql-data
-
+/src/main/resources/.prod-env

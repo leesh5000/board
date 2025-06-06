@@ -1,3 +1,27 @@
 spring:
-  profiles:
-    active: ${SPRING_PROFILES_ACTIVE:local}
+#  config:
+#    import:
+#      - optional:./.prod-env
+  datasource:
+    url: ${JDBC_DATABASE_URL:jdbc:mysql://localhost:3306/board?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true}
+    username: ${JDBC_DATABASE_USERNAME:user}
+    password: ${JDBC_DATABASE_PASSWORD:password}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: ${JDBC_DATABASE_DDL_AUTO:update}
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    org.hibernate.SQL: ${JDBC_DATABASE_SQL_LOG_LEVEL:debug}
+    org.hibernate.type.descriptor.sql: ${JDBC_DATABASE_SQL_DESCRIPTOR_LOG_LEVEL:trace}
