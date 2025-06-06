@@ -50,7 +50,6 @@ dependencies {
 
     // dotenv 지원을 위한 의존성 추가
     implementation("me.paulschwarz:spring-dotenv:4.0.0")
-
 }
 
 kotlin {

@@ -31,12 +31,12 @@ jobs:
       - name: Build with Gradle
         run: >-
           ./gradlew clean build
-          -DJDBC_DATABASE_URL='${{ secrets.JDBC_DATABASE_URL }}'
-          -DJDBC_DATABASE_USERNAME='${{ secrets.JDBC_DATABASE_USERNAME }}'
-          -DJDBC_DATABASE_PASSWORD='${{ secrets.JDBC_DATABASE_PASSWORD }}'
+          '-DJDBC_DATABASE_URL=${{ secrets.JDBC_DATABASE_URL }}
+          -DJDBC_DATABASE_USERNAME=${{ secrets.JDBC_DATABASE_USERNAME }}
+          -DJDBC_DATABASE_PASSWORD=${{ secrets.JDBC_DATABASE_PASSWORD }}
           -DJDBC_DATABASE_DDL_AUTO=validate
           -DJDBC_DATABASE_SQL_LOG_LEVEL=warn
-          -DJDBC_DATABASE_SQL_DESCRIPTOR_LOG_LEVEL=warn
+          -DJDBC_DATABASE_SQL_DESCRIPTOR_LOG_LEVEL=warn'
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
